@@ -1,6 +1,7 @@
 const express = require("express");
+
 const app = express();
-const port = 3000;
+const port = 5000;
 
 const authTest = {
   user: "admin@test.com",
@@ -14,15 +15,15 @@ const ErrorMessages = {
   },
 };
 
-app.use(express.json())
+app.use(require('./router'));
 
 app.post("/authenticate", (req, res) => {
-    console.log(req.body);
+  console.log(req.body);
   const { body = {} } = req;
   const { user, password } = body;
 
   // Set error message based on header lang
-  if (user === undefined || password === undefined) {
+  if (!user || !password) {
     res.status(400, ErrorMessages.ptBr.InvalidAuth);
     res.end();
     return;
