@@ -1,0 +1,32 @@
+[
+  {
+    "id": 0,
+    "name": "Maçã",
+    "price": 1,
+    "photoUrl": ""
+  },
+  {
+    "id": 1,
+    "name": "Pêra",
+    "price": 1.05,
+    "photoUrl": ""
+  },
+  {
+    "id": 2,
+    "name": "Banana",
+    "price": 0.75,
+    "photoUrl": ""
+  },
+  {
+    "id": 3,
+    "name": "Abacaxi",
+    "price": 1.78,
+    "photoUrl": ""
+  },
+  {
+    "id": 4,
+    "name": "Manga",
+    "price": 0,
+    "photoUrl": ""
+  }
+]

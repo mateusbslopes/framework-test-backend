@@ -1,5 +1,7 @@
 const express = require("express");
 
+const products = require("./store/producs.json");
+
 const app = express();
 const port = 5000;
 
@@ -12,13 +14,13 @@ const authTest = {
 const ErrorMessages = {
   ptBr: {
     InvalidAuth: "Usuario ou senha inválidos",
+    NotFound: "Não encontrado"
   },
 };
 
-app.use(require('./router'));
+app.use(require("./router"));
 
 app.post("/authenticate", (req, res) => {
-  console.log(req.body);
   const { body = {} } = req;
   const { user, password } = body;
 
@@ -38,6 +40,33 @@ app.post("/authenticate", (req, res) => {
   res.setHeader("Content-Type", "application/json");
   res.status(200);
   res.end(JSON.stringify({ token: authTest.token }));
+});
+
+app.get("/products", (req, res) => {
+  const { search } = req.query;
+
+  const result = products.filter((p) =>
+    p.name.toUpperCase().includes(search.toUpperCase())
+  );
+
+  res.setHeader("Content-Type", "application/json");
+  res.status(200);
+  res.end(JSON.stringify(result));
+});
+
+app.get("/products/:id", (req, res) => {
+  const { id } = req.params;
+  const result = products.find((p) => p.id == id);
+
+  if (!result) {
+    res.status(404, ErrorMessages.ptBr.NotFound);
+    res.end();
+    return;
+  }
+
+  res.setHeader("Content-Type", "application/json");
+  res.status(200);
+  res.end(JSON.stringify(result));
 });
 
 app.listen(port, () => {
